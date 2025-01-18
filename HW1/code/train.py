@@ -50,12 +50,13 @@ def select_feat(train_data, valid_data, test_data, select_all = True):
     label_train = train_data[:, -1]
     label_valid = valid_data[:, -1]
     
+    # TODO
     # 选择feature
-    # 所有行，除了第一列（id）和最后一列（label）
-    raw_train = train_data[:, 1:-1]
-    raw_valid = valid_data[:, 1:-1]
+    # 所有行，除了前40列（id和州）和最后一列（label）
+    raw_train = train_data[:, 41:-1]
+    raw_valid = valid_data[:, 41:-1]
     # 测试集无label列
-    raw_test = test_data[:, 1:]
+    raw_test = test_data[:, 41:]
     
     # 是否选择所有特征
     if select_all:
@@ -126,7 +127,8 @@ class My_DNNModel(nn.Module):
         x = x.squeeze(1)
         
         return x
-        
+
+# TODO
 # 参数设置
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 config = {
@@ -140,7 +142,7 @@ config = {
     'learning_rate': 1e-5,
     # 当模型400不更新时，停止训练
     'early_stop': 400,
-    'model_path': './HW1/models/model.ckpt',
+    'model_path': './HW1/models/model2.ckpt',
 }
 
 # 训练过程
@@ -311,5 +313,6 @@ preds = predict(test_loader, model, device)
 if not os.path.exists('./HW1/preds'):
     
     os.makedirs('./HW1/preds')
-    
-save_pred(preds, './HW1/preds/pred.csv')
+
+# TODO
+save_pred(preds, './HW1/preds/pred2.csv')
